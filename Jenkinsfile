@@ -14,7 +14,7 @@ pipeline {
   stages {
     stage('CI Build Release') {
       when {
-        branch 'master'
+        branch 'develop'
       }
       steps {
         script{properties([disableConcurrentBuilds()])}
