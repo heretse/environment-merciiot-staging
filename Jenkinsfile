@@ -27,7 +27,7 @@ pipeline {
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
         }
-        dir ('mercchart') {
+        dir ('mercchart/charts/am-svc') {
           container('maven') {
             sh "make tag"
           }
