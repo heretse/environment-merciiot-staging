@@ -20,7 +20,7 @@ pipeline {
         script{properties([disableConcurrentBuilds()])}
         container('maven') {
           // ensure we're not on a detached head
-          sh "git checkout develop"
+          sh "git checkout master"
           sh "git config --global credential.helper store"
           sh "jx step validate --min-jx-version 1.1.73"
           sh "jx step git credentials"
@@ -46,7 +46,7 @@ pipeline {
     }
     stage('Promote to Environments') {
       when {
-        branch 'develop'
+        branch 'master'
       }
       steps {
         dir ('mercchart/charts/am-svc') {
@@ -73,7 +73,7 @@ pipeline {
     }
     stage('Update Environment') {
       when {
-        branch 'develop'
+        branch 'master'
       }
       steps {
         container('maven') {
