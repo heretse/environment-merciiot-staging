@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
+  repository: 10.103.74.159:5000/merciiot/am-svc
+  tag: 0.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
