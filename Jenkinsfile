@@ -13,9 +13,9 @@ pipeline {
   }
   stages {
     stage('CI Build Release') {
-      when {
-        branch 'master'
-      }
+      // when {
+      //   branch 'master'
+      // }
       steps {
         script{properties([disableConcurrentBuilds()])}
         container('maven') {
@@ -45,9 +45,9 @@ pipeline {
       }
     }
     stage('Promote to Environments') {
-      when {
-        branch 'master'
-      }
+      // when {
+      //   branch 'master'
+      // }
       steps {
         dir ('mercchart/charts/am-svc') {
           container('maven') {
@@ -72,9 +72,9 @@ pipeline {
       }
     }
     stage('Update Environment') {
-      when {
-        branch 'master'
-      }
+      // when {
+      //   branch 'master'
+      // }
       steps {
         container('maven') {
           dir('mercchart/charts/am-svc') {
