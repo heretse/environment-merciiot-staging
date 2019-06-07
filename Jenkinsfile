@@ -14,7 +14,7 @@ pipeline {
   stages {
     stage('CI Build Release') {
       when {
-        branch 'develop'
+        branch 'master'
       }
       steps {
         script{properties([disableConcurrentBuilds()])}
@@ -37,9 +37,9 @@ pipeline {
             // sh "npm install"
             // sh "CI=true DISPLAY=:99 npm test"
 
-            sh 'export VERSION=`cat VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
-            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:\$(cat VERSION)"
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:\$(cat ../VERSION)"
           }
         }
       }
@@ -49,9 +49,9 @@ pipeline {
         branch 'develop'
       }
       steps {
-        dir ('mercchart') {
+        dir ('mercchart/charts/am-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../am-svc/VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -65,7 +65,7 @@ pipeline {
     stage('Validate Environment') {
       steps {
         container('maven') {
-          dir('mercchart') {
+          dir('mercchart/charts/am-svc') {
             sh 'jx step helm build'
           }
         }
@@ -77,7 +77,7 @@ pipeline {
       }
       steps {
         container('maven') {
-          dir('mercchart') {
+          dir('mercchart/charts/am-svc') {
             sh 'jx step helm apply'
           }
         }
