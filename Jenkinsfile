@@ -8,7 +8,8 @@ pipeline {
   environment {
     DEPLOY_NAMESPACE  = "jx-staging"
     ORG               = 'merciiot'
-    APP_NAME          = 'am-svc'
+    APP_NAME_AM       = 'am-svc'
+    APP_NAME_ALT      = 'alt-svc'
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
@@ -34,12 +35,20 @@ pipeline {
         }
         dir ('am-svc') {
           container('maven') {
-            // sh "npm install"
-            // sh "CI=true DISPLAY=:99 npm test"
-
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
-            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME:\$(cat ../VERSION)"
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_AM:\$(cat ../VERSION)"
+          }
+        }
+        dir ('mercchart/charts/alt-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('alt-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_ALT:\$(cat ../VERSION)"
           }
         }
       }
@@ -60,12 +69,26 @@ pipeline {
             // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../VERSION)'
           }
         }
+        dir ('mercchart/charts/alt-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+
+            // promote through all 'Auto' promotion Environments
+            // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../VERSION)'
+          }
+        }
       }
     }
     stage('Validate Environment') {
       steps {
         container('maven') {
           dir('mercchart/charts/am-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/alt-svc') {
             sh 'jx step helm build'
           }
         }
@@ -78,6 +101,9 @@ pipeline {
       steps {
         container('maven') {
           dir('mercchart/charts/am-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/alt-svc') {
             sh 'jx step helm apply'
           }
         }
