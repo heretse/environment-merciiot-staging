@@ -40,11 +40,6 @@ pipeline {
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_AM:\$(cat ../VERSION)"
           }
         }
-        dir ('mercchart/charts/alt-svc') {
-          container('maven') {
-            sh "make tag"
-          }
-        }
         dir ('alt-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
