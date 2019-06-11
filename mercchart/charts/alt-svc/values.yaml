@@ -1,7 +1,7 @@
 # Default values for alt-svc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-nameOverride: 
+nameOverride: alt-svc
 
 replicaCount: 1
 
