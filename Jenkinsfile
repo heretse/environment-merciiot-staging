@@ -6,11 +6,12 @@ pipeline {
       label "jenkins-maven"
   }
   environment {
-    DEPLOY_NAMESPACE  = "jx-staging"
-    ORG               = 'merciiot'
-    APP_NAME_AM       = 'am-svc'
-    APP_NAME_ALT      = 'alt-svc'
-    CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
+    DEPLOY_NAMESPACE    = "jx-staging"
+    ORG                 = 'merciiot'
+    APP_NAME_ALT        = 'alt-svc'
+    APP_NAME_AM         = 'am-svc'
+    APP_NAME_DATA       = 'data-svc'
+    CHARTMUSEUM_CREDS   = credentials('jenkins-x-chartmuseum')
   }
   stages {
     stage('CI Build Release') {
@@ -25,12 +26,17 @@ pipeline {
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
         }
+        dir ('mercchart/charts/alt-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
         dir ('mercchart/charts/am-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/alt-svc') {
+        dir ('mercchart/charts/data-svc') {
           container('maven') {
             sh "make tag"
           }
@@ -48,11 +54,24 @@ pipeline {
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_ALT:\$(cat ../VERSION)"
           }
         }
-
+        dir ('data-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DATA:\$(cat ../VERSION)"
+          }
+        }
       }
     }
     stage('Promote to Environments') {
       steps {
+        dir ('mercchart/charts/alt-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
         dir ('mercchart/charts/am-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
@@ -61,7 +80,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/alt-svc') {
+        dir ('mercchart/charts/data-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -74,10 +93,13 @@ pipeline {
     stage('Validate Environment') {
       steps {
         container('maven') {
+          dir('mercchart/charts/alt-svc') {
+            sh 'jx step helm build'
+          }
           dir('mercchart/charts/am-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/alt-svc') {
+          dir('mercchart/charts/data-svc') {
             sh 'jx step helm build'
           }
         }
@@ -86,10 +108,13 @@ pipeline {
     stage('Update Environment') {
       steps {
         container('maven') {
+          dir('mercchart/charts/alt-svc') {
+            sh 'jx step helm apply'
+          }
           dir('mercchart/charts/am-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/alt-svc') {
+          dir('mercchart/charts/data-svc') {
             sh 'jx step helm apply'
           }
         }
