@@ -24,7 +24,7 @@ profiles:
   deploy:
     helm:
       releases:
-      - name: am-svc
+      - name: data-svc
         chartPath: ../merciiot/charts/data-svc
         setValueTemplates:
           image.repository: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/data-svc"
