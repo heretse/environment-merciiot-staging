@@ -42,11 +42,10 @@ pipeline {
           }
         }
         container('maven') {
-          sh 'export RELEASE_VERSION=`cat VERSION`'
           sh 'git add --all'
-          sh 'git commit -m \"release \$RELEASE_VERSION\" --allow-empty'
-          sh 'git tag -fa v\$RELEASE_VERSION -m \"Release version \$RELEASE_VERSION\"'
-          sh 'git push origin v\$RELEASE_VERSION'
+          sh 'git commit -m \"release \$(cat VERSION)\" --allow-empty'
+          sh 'git tag -fa v\$(cat VERSION) -m \"Release version \$(cat VERSION)\"'
+          sh 'git push origin v\$(cat VERSION)'
         }
         dir ('am-svc') {
           container('maven') {
