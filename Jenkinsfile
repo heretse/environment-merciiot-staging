@@ -14,9 +14,6 @@ pipeline {
   }
   stages {
     stage('CI Build Release') {
-      // when {
-      //   branch 'master'
-      // }
       steps {
         script{properties([disableConcurrentBuilds()])}
         container('maven') {
@@ -29,6 +26,11 @@ pipeline {
           sh "echo \$(jx-release-version) > VERSION"
         }
         dir ('mercchart/charts/am-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('mercchart/charts/alt-svc') {
           container('maven') {
             sh "make tag"
           }
