@@ -46,12 +46,10 @@ pipeline {
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_ALT:\$(cat ../VERSION)"
           }
         }
+
       }
     }
     stage('Promote to Environments') {
-      // when {
-      //   branch 'master'
-      // }
       steps {
         dir ('mercchart/charts/am-svc') {
           container('maven') {
@@ -59,9 +57,6 @@ pipeline {
 
             // release the helm chart
             sh 'make release'
-
-            // promote through all 'Auto' promotion Environments
-            // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../VERSION)'
           }
         }
         dir ('mercchart/charts/alt-svc') {
@@ -70,9 +65,6 @@ pipeline {
 
             // release the helm chart
             sh 'make release'
-
-            // promote through all 'Auto' promotion Environments
-            // sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../VERSION)'
           }
         }
       }
@@ -90,9 +82,6 @@ pipeline {
       }
     }
     stage('Update Environment') {
-      // when {
-      //   branch 'master'
-      // }
       steps {
         container('maven') {
           dir('mercchart/charts/am-svc') {
