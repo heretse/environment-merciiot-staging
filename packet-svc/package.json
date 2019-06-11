@@ -1,0 +1,5 @@
+{
+  "name": "packet-svc",
+  "description": "Packet Service for MERC System",
+  "version": "1.0.0"
+}

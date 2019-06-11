@@ -1,12 +1,13 @@
 # Default values for layout-svc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+nameOverride: layout-svc
 
 replicaCount: 1
 
 image:
-  repository: "layout-svc"
-  tag: "1.0.0"
+  repository: draft
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:
@@ -26,12 +27,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  requests:
-    memory: 256Mi
+  limits:
     cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 #nodeSelector:
 #  kubernetes.io/hostname: 10.5.88.24

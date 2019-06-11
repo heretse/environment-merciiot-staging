@@ -11,6 +11,11 @@ pipeline {
     APP_NAME_ALT        = 'alt-svc'
     APP_NAME_AM         = 'am-svc'
     APP_NAME_DATA       = 'data-svc'
+    APP_NAME_DEVICE     = 'device-svc'
+    APP_NAME_LAYOUT     = 'layout-svc'
+    APP_NAME_LOCATION   = 'location-svc'
+    APP_NAME_PACKET     = 'packet-svc'
+    APP_NAME_REPORT     = 'report-svc'
     CHARTMUSEUM_CREDS   = credentials('jenkins-x-chartmuseum')
   }
   stages {
@@ -41,6 +46,31 @@ pipeline {
             sh "make tag"
           }
         }
+        dir ('mercchart/charts/device-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('mercchart/charts/layout-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('mercchart/charts/location-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('mercchart/charts/packet-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('mercchart/charts/report-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
         container('maven') {
           sh 'git add --all'
           sh 'git commit -m \"release \$(cat VERSION)\" --allow-empty'
@@ -64,6 +94,36 @@ pipeline {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DATA:\$(cat ../VERSION)"
+          }
+        }
+        dir ('device-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DEVICE:\$(cat ../VERSION)"
+          }
+        }
+        dir ('layout-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LAYOUT:\$(cat ../VERSION)"
+          }
+        }
+        dir ('location-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
+          }
+        }
+        dir ('packet-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_PACKET:\$(cat ../VERSION)"
+          }
+        }
+        dir ('report-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_REPORT:\$(cat ../VERSION)"
           }
         }
       }
@@ -94,6 +154,46 @@ pipeline {
             sh 'make release'
           }
         }
+        dir ('mercchart/charts/device-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
+        dir ('mercchart/charts/layout-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
+        dir ('mercchart/charts/location-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
+        dir ('mercchart/charts/packet-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
+        dir ('mercchart/charts/report-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
       }
     }
     stage('Validate Environment') {
@@ -106,6 +206,21 @@ pipeline {
             sh 'jx step helm build'
           }
           dir('mercchart/charts/data-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/device-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/layout-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/location-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/packet-svc') {
+            sh 'jx step helm build'
+          }
+          dir('mercchart/charts/report-svc') {
             sh 'jx step helm build'
           }
         }
@@ -121,6 +236,21 @@ pipeline {
             sh 'jx step helm apply'
           }
           dir('mercchart/charts/data-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/device-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/layout-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/location-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/packet-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('mercchart/charts/report-svc') {
             sh 'jx step helm apply'
           }
         }
