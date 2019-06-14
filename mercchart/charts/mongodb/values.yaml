@@ -10,10 +10,6 @@ image:
   tag: dev
   pullPolicy: IfNotPresent
 
-extraVolumeMounts:
-  name: mongo-persistent-storage
-  mountPath: /etc/mongo
-
 service:
   name: mongodb
   type: ClusterIP

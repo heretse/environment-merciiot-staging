@@ -26,9 +26,8 @@ spec:
 {{ tpl . $ | indent 8 }}
 {{- end }}
         volumeMounts:
-{{- with .Values.extraVolumeMounts }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+          name: mongo-persistent-storage
+          mountPath: /etc/mongo
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
