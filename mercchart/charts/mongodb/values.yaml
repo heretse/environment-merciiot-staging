@@ -11,8 +11,8 @@ image:
   pullPolicy: IfNotPresent
 
 extraVolumeMounts:
-  - name: mongo-persistent-storage
-    mountPath: /etc/mongo
+  name: mongo-persistent-storage
+  mountPath: /etc/mongo
 
 service:
   name: mongodb
