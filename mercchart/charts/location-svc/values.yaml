@@ -6,8 +6,8 @@ nameOverride: location-svc
 replicaCount: 1
 
 image:
-  repository: draft
-  tag: dev
+  repository: 10.103.74.159:5000/merciiot/location-svc
+  tag: 0.0.27
   pullPolicy: IfNotPresent
 
 service:
