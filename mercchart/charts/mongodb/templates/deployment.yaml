@@ -64,6 +64,6 @@ spec:
     {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
-{{- with .Values.extraVolumes }}
-{{ tpl . $ | indent 8 }}
-{{- end }}
+      - name: mongo-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongo-pv-claim
