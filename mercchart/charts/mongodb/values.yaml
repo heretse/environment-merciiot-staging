@@ -15,6 +15,7 @@ service:
   type: ClusterIP
   externalPort: 27017
   internalPort: 27017
+  
 ingress:
   enabled: false
   host:

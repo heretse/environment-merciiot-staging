@@ -26,8 +26,8 @@ spec:
 {{ tpl . $ | indent 8 }}
 {{- end }}
         volumeMounts:
-          name: mongo-persistent-storage
-          mountPath: /etc/mongo
+          name: "mongo-persistent-storage"
+          mountPath: "/etc/mongo"
 {{- with .Values.extraVolumeMounts }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
@@ -67,9 +67,9 @@ spec:
     {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
-      - name: mongo-persistent-storage
+      - name: "mongo-persistent-storage"
         persistentVolumeClaim:
-          claimName: mongo-pv-claim
+          claimName: "mongo-pv-claim"
 {{- with .Values.extraVolumes }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
