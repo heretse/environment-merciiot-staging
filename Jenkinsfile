@@ -8,6 +8,7 @@ pipeline {
   environment {
     DEPLOY_NAMESPACE    = "jx-staging"
     ORG                 = 'merciiot'
+    DB_NAME_MONGO       = 'mongodb'
     APP_NAME_ALT        = 'alt-svc'
     APP_NAME_AM         = 'am-svc'
     APP_NAME_DATA       = 'data-svc'
@@ -30,6 +31,11 @@ pipeline {
           sh "jx step git credentials"
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
+        }
+        dir ('mercchart/charts/mongodb') {
+          container('maven') {
+            sh "make tag"
+          }
         }
         dir ('mercchart/charts/alt-svc') {
           container('maven') {
@@ -76,6 +82,13 @@ pipeline {
           sh 'git commit -m \"release \$(cat VERSION)\" --allow-empty'
           sh 'git tag -fa v\$(cat VERSION) -m \"Release version \$(cat VERSION)\"'
           sh 'git push origin v\$(cat VERSION)'
+        }
+        dir ('mongodb-merc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step validate --min-jx-version 1.2.36"
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$DB_NAME_MONGO:\$(cat ../VERSION)"
+          }
         }
         dir ('am-svc') {
           container('maven') {
@@ -130,6 +143,14 @@ pipeline {
     }
     stage('Promote to Environments') {
       steps {
+        dir ('mercchart/charts/mongodb') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
         dir ('mercchart/charts/alt-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
@@ -199,6 +220,9 @@ pipeline {
     stage('Validate Environment') {
       steps {
         container('maven') {
+          dir('mercchart/charts/mongodb') {
+            sh 'jx step helm build'
+          }
           dir('mercchart/charts/alt-svc') {
             sh 'jx step helm build'
           }
@@ -229,6 +253,9 @@ pipeline {
     stage('Update Environment') {
       steps {
         container('maven') {
+          dir('mercchart/charts/mongodb') {
+            sh 'jx step helm apply'
+          }
           dir('mercchart/charts/alt-svc') {
             sh 'jx step helm apply'
           }

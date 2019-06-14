@@ -1,0 +1,53 @@
+# Default values for mongodb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: mongodb
+
+replicaCount: 1
+
+image:
+  repository: draft
+  tag: dev
+  pullPolicy: IfNotPresent
+
+extraVolumeMounts:
+  - name: mongo-persistent-storage
+    mountPath: /etc/mongo
+
+service:
+  name: mongodb
+  type: ClusterIP
+  externalPort: 27017
+  internalPort: 27017
+ingress:
+  enabled: false
+  host:
+  - chart-example.local
+  tls:
+
+resources:  
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+#nodeSelector:
+#  kubernetes.io/hostname: 10.5.88.24
+
+probePath: /
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+terminationGracePeriodSeconds: 10
