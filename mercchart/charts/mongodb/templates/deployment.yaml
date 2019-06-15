@@ -25,9 +25,9 @@ spec:
 {{- with .Values.extraEnv }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
-        volumeMounts:
-          name: "mongo-persistent-storage"
-          mountPath: "/etc/mongo"
+        # volumeMounts:
+        #   name: "mongo-persistent-storage"
+        #   mountPath: "/etc/mongo"
 {{- with .Values.extraVolumeMounts }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
