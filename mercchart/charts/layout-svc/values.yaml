@@ -6,8 +6,8 @@ nameOverride: layout-svc
 replicaCount: 1
 
 image:
-  repository: draft
-  tag: dev
+  repository: 10.103.74.159:5000/merciiot/layout-svc
+  tag: 0.0.33
   pullPolicy: IfNotPresent
 
 service:
