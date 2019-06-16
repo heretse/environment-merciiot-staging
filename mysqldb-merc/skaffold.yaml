@@ -1,0 +1,31 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  tagPolicy:
+    envTemplate:
+      template: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/mysqldb:{{.VERSION}}"
+  artifacts:
+  - imageName: mysqldb
+    workspace: .
+    docker: {}
+  local: {}
+deploy:
+  kubectl:
+    manifests:
+profiles:
+- name: dev
+  build:
+    tagPolicy:
+      envTemplate:
+        template: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/mysqldb:{{.DIGEST_HEX}}"
+    artifacts:
+    - docker: {}
+    local: {}
+  deploy:
+    helm:
+      releases:
+      - name: mysqldb
+        chartPath: ../merciiot/charts/mysqldb
+        setValueTemplates:
+          image.repository: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/mysqldb"
+          image.tag: "{{.DIGEST_HEX}}"
