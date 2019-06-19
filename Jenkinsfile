@@ -26,59 +26,59 @@ pipeline {
         script{properties([disableConcurrentBuilds()])}
         container('maven') {
           // ensure we're not on a detached head
-          sh "git checkout master"
+          sh "git checkout develop"
           sh "git config --global credential.helper store"
           sh "jx step validate --min-jx-version 1.1.73"
           sh "jx step git credentials"
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
         }
-        dir ('mercchart/charts/mongodb') {
+        dir ('charts/mongodb') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/mysqldb') {
+        dir ('charts/mysqldb') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/alt-svc') {
+        dir ('charts/alt-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/am-svc') {
+        dir ('charts/am-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/data-svc') {
+        dir ('charts/data-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/device-svc') {
+        dir ('charts/device-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/layout-svc') {
+        dir ('charts/layout-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/location-svc') {
+        dir ('charts/location-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/packet-svc') {
+        dir ('charts/packet-svc') {
           container('maven') {
             sh "make tag"
           }
         }
-        dir ('mercchart/charts/report-svc') {
+        dir ('charts/report-svc') {
           container('maven') {
             sh "make tag"
           }
@@ -89,64 +89,64 @@ pipeline {
           sh 'git tag -fa v\$(cat VERSION) -m \"Release version \$(cat VERSION)\"'
           sh 'git push origin v\$(cat VERSION)'
         }
-        dir ('mongodb-merc') {
+        dir ('charts/mongodb') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$DB_NAME_MONGO:\$(cat ../VERSION)"
           }
         }
-        dir ('mysqldb-merc') {
+        dir ('charts/mysqldb') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$DB_NAME_MYSQL:\$(cat ../VERSION)"
           }
         }
-        dir ('am-svc') {
+        dir ('charts/am-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_AM:\$(cat ../VERSION)"
           }
         }
-        dir ('alt-svc') {
+        dir ('charts/alt-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_ALT:\$(cat ../VERSION)"
           }
         }
-        dir ('data-svc') {
+        dir ('charts/data-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DATA:\$(cat ../VERSION)"
           }
         }
-        dir ('device-svc') {
+        dir ('charts/device-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DEVICE:\$(cat ../VERSION)"
           }
         }
-        dir ('layout-svc') {
+        dir ('charts/layout-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LAYOUT:\$(cat ../VERSION)"
           }
         }
-        dir ('location-svc') {
+        dir ('charts/location-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
           }
         }
-        dir ('packet-svc') {
+        dir ('charts/packet-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_PACKET:\$(cat ../VERSION)"
           }
         }
-        dir ('report-svc') {
+        dir ('charts/report-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_REPORT:\$(cat ../VERSION)"
@@ -156,7 +156,7 @@ pipeline {
     }
     stage('Promote to Environments') {
       steps {
-        dir ('mercchart/charts/mongodb') {
+        dir ('charts/mongodb') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -164,7 +164,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/mysqldb') {
+        dir ('charts/mysqldb') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -172,7 +172,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/alt-svc') {
+        dir ('charts/alt-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -180,7 +180,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/am-svc') {
+        dir ('charts/am-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -188,7 +188,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/data-svc') {
+        dir ('charts/data-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -196,7 +196,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/device-svc') {
+        dir ('charts/device-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -204,7 +204,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/layout-svc') {
+        dir ('charts/layout-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -212,7 +212,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/location-svc') {
+        dir ('charts/location-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -220,7 +220,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/packet-svc') {
+        dir ('charts/packet-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -228,7 +228,7 @@ pipeline {
             sh 'make release'
           }
         }
-        dir ('mercchart/charts/report-svc') {
+        dir ('charts/report-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../../VERSION)'
 
@@ -241,34 +241,34 @@ pipeline {
     stage('Validate Environment') {
       steps {
         container('maven') {
-          dir('mercchart/charts/mongodb') {
+          dir('charts/mongodb') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/mysqldb') {
+          dir('charts/mysqldb') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/alt-svc') {
+          dir('charts/alt-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/am-svc') {
+          dir('charts/am-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/data-svc') {
+          dir('charts/data-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/device-svc') {
+          dir('charts/device-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/layout-svc') {
+          dir('charts/layout-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/location-svc') {
+          dir('charts/location-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/packet-svc') {
+          dir('charts/packet-svc') {
             sh 'jx step helm build'
           }
-          dir('mercchart/charts/report-svc') {
+          dir('charts/report-svc') {
             sh 'jx step helm build'
           }
         }
@@ -277,34 +277,34 @@ pipeline {
     stage('Update Environment') {
       steps {
         container('maven') {
-          dir('mercchart/charts/mongodb') {
+          dir('charts/mongodb') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/mysqldb') {
+          dir('charts/mysqldb') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/alt-svc') {
+          dir('charts/alt-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/am-svc') {
+          dir('charts/am-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/data-svc') {
+          dir('charts/data-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/device-svc') {
+          dir('charts/device-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/layout-svc') {
+          dir('charts/layout-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/location-svc') {
+          dir('charts/location-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/packet-svc') {
+          dir('charts/packet-svc') {
             sh 'jx step helm apply'
           }
-          dir('mercchart/charts/report-svc') {
+          dir('charts/report-svc') {
             sh 'jx step helm apply'
           }
         }
