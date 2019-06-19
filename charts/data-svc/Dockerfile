@@ -14,12 +14,12 @@ RUN npm install --save node-red-node-mysql
 
 WORKDIR /data
 
-COPY ../../data-svc/flows.json flows.json
+COPY ./flows.json flows.json
 
-COPY ../../data-svc/flows_cred.json flows_cred.json
+COPY ./flows_cred.json flows_cred.json
 
-COPY ../../data-svc/package.json package.json
+COPY ./package.json package.json
 
-COPY ../../data-svc/settings.js settings.js
+COPY ./settings.js settings.js
 
 WORKDIR /usr/src/node-red
