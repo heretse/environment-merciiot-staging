@@ -2,4 +2,4 @@ apiVersion: v1
 description: A location-svc is location service, provides APIs to access plan info.
 icon: https://avatars3.githubusercontent.com/u/5375661?s=200&v=4
 name: location-svc
-version: 1.0.0
+version: 
