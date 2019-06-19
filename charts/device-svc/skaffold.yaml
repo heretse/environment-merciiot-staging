@@ -25,7 +25,7 @@ profiles:
     helm:
       releases:
       - name: device-svc
-        chartPath: ../merciiot/charts/device-svc
+        chartPath: .
         setValueTemplates:
           image.repository: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/device-svc"
           image.tag: "{{.DIGEST_HEX}}"

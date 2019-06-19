@@ -1,4 +1,4 @@
-apiVersion: skaffold/v1alpha2
+apiVersion: skaffold/v1beta8
 kind: Config
 build:
   tagPolicy:
@@ -25,7 +25,7 @@ profiles:
     helm:
       releases:
       - name: data-svc
-        chartPath: ../merciiot/charts/data-svc
+        chartPath: .
         setValueTemplates:
           image.repository: "{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST}}:{{.JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT}}/merciiot/data-svc"
           image.tag: "{{.DIGEST_HEX}}"
