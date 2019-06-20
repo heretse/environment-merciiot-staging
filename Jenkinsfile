@@ -91,64 +91,64 @@ pipeline {
         }
         dir ('charts/mongodb') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$DB_NAME_MONGO:\$(cat ../VERSION)"
           }
         }
         dir ('charts/mysqldb') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$DB_NAME_MYSQL:\$(cat ../VERSION)"
           }
         }
         dir ('charts/am-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_AM:\$(cat ../VERSION)"
           }
         }
         dir ('charts/alt-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_ALT:\$(cat ../VERSION)"
           }
         }
         dir ('charts/data-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DATA:\$(cat ../VERSION)"
           }
         }
         dir ('charts/device-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_DEVICE:\$(cat ../VERSION)"
           }
         }
         dir ('charts/layout-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LAYOUT:\$(cat ../VERSION)"
           }
         }
         dir ('charts/location-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
           }
         }
         dir ('charts/packet-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_PACKET:\$(cat ../VERSION)"
           }
         }
         dir ('charts/report-svc') {
           container('maven') {
-            sh 'export VERSION=`cat ../VERSION` && skaffold run -f skaffold.yaml'
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_REPORT:\$(cat ../VERSION)"
           }
         }
