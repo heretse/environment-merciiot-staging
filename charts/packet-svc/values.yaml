@@ -6,8 +6,8 @@ nameOverride: packet-svc
 replicaCount: 1
 
 image:
-  repository: draft
-  tag: dev
+  repository: 10.103.74.159:5000/merciiot/packet-svc
+  tag: 1.0.6
   pullPolicy: IfNotPresent
 
 service:
