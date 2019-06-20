@@ -158,7 +158,7 @@ pipeline {
       steps {
         dir ('charts/mongodb') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -166,7 +166,7 @@ pipeline {
         }
         dir ('charts/mysqldb') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -174,7 +174,7 @@ pipeline {
         }
         dir ('charts/alt-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -182,7 +182,7 @@ pipeline {
         }
         dir ('charts/am-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -190,7 +190,7 @@ pipeline {
         }
         dir ('charts/data-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -198,7 +198,7 @@ pipeline {
         }
         dir ('charts/device-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -206,7 +206,7 @@ pipeline {
         }
         dir ('charts/layout-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -214,7 +214,7 @@ pipeline {
         }
         dir ('charts/location-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -222,7 +222,7 @@ pipeline {
         }
         dir ('charts/packet-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
@@ -230,7 +230,7 @@ pipeline {
         }
         dir ('charts/report-svc') {
           container('maven') {
-            sh 'jx step changelog --version v\$(cat ../../../VERSION)'
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
             // release the helm chart
             sh 'make release'
