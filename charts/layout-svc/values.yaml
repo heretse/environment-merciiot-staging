@@ -50,9 +50,9 @@ readinessProbe:
 terminationGracePeriodSeconds: 10
 
 #nodeAffinity
-arch: x86
+arch: amd64
 
-# Annotations to be added to MongoDB pods
+# Annotations to be added to layout-svc pods
 podAnnotations:
   productName: "Layout Service"
   productID: "merciiot-layout-svc"

@@ -53,9 +53,9 @@ readinessProbe:
 terminationGracePeriodSeconds: 10
 
 #nodeAffinity
-arch: x86
+arch: amd64
 
-# Annotations to be added to MongoDB pods
+# Annotations to be added to am-svc pods
 podAnnotations:
   productName: "Account Management Service"
   productID: "merciiot-am-svc"

@@ -1,4 +1,4 @@
-# Default values for mongodb.
+# Default values for mysqldb.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 nameOverride: mysqldb
@@ -52,9 +52,9 @@ readinessProbe:
   failureThreshold: 3
 
 #nodeAffinity
-arch: x86
+arch: amd64
 
-# Annotations to be added to MongoDB pods
+# Annotations to be added to mysqldb pods
 podAnnotations:
   productName: "MySQLDB Service"
   productID: "merciiot-mysqldb-svc"

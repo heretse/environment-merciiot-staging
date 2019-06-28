@@ -49,9 +49,9 @@ readinessProbe:
 terminationGracePeriodSeconds: 10
 
 #nodeAffinity
-arch: x86
+arch: amd64
 
-# Annotations to be added to MongoDB pods
+# Annotations to be added to report-svc pods
 podAnnotations:
   productName: "Report Service"
   productID: "merciiot-report-svc"
