@@ -26,7 +26,7 @@ spec:
     nodePort: {{ .Values.service.nodePort }}
     {{- end }}
     protocol: TCP
-    name: http
+    name: am-svc-http
   selector:
     app: {{ template "fullname" . }}
 {{- end }}
