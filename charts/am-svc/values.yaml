@@ -51,4 +51,12 @@ readinessProbe:
   successThreshold: 1
   timeoutSeconds: 1
 terminationGracePeriodSeconds: 10
+
+#nodeAffinity
 arch: x86
+
+# Annotations to be added to MongoDB pods
+podAnnotations:
+  productName: "Account Management Service"
+  productID: "merciiot-am-svc"
+  productVersion: "v1.0.0"

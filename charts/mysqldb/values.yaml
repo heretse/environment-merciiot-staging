@@ -50,4 +50,12 @@ readinessProbe:
   timeoutSeconds: 1
   successThreshold: 1
   failureThreshold: 3
+
+#nodeAffinity
 arch: x86
+
+# Annotations to be added to MongoDB pods
+podAnnotations:
+  productName: "MySQLDB Service"
+  productID: "merciiot-mysqldb-svc"
+  productVersion: "v1.0.0"
