@@ -57,10 +57,15 @@ spec:
 {{- with .Values.extraContainers }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
-    {{- with .Values.affinity }}
       affinity:
-{{ tpl . $ | indent 8 }}
-    {{- end }}
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+              operator: In
+              values:
+              - {{ .Values.arch }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
