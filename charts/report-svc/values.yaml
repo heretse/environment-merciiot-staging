@@ -15,6 +15,7 @@ service:
   type: NodePort
   externalPort: 31889
   internalPort: 1880
+
 ingress:
   enabled: false
   host:
