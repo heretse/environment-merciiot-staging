@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: merc-mysqldb-clusterrole
+rules:
+- apiGroups:
+  - extensions
+  resourceNames:
+  - merc-mysqldb-psp
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use

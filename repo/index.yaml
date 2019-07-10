@@ -1,0 +1,161 @@
+apiVersion: v1
+entries:
+  alt-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: alert management service (alt-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - alert
+    name: alt-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/alt-svc-1.0.0.tgz
+    version: 1.0.0
+  am-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: account management service (am-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - account
+    name: am-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/am-svc-1.0.0.tgz
+    version: 1.0.0
+  data-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: IoT data service (data-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - IoT
+    - data
+    name: data-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/data-svc-1.0.0.tgz
+    version: 1.0.0
+  device-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: IoT device service (device-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - IoT
+    - device
+    name: device-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/device-svc-1.0.0.tgz
+    version: 1.0.0
+  layout-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: portal layout management service (layout-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - layout
+    - dashboard
+    name: layout-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/layout-svc-1.0.0.tgz
+    version: 1.0.0
+  location-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: storage management service (location-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - storage
+    - location
+    name: location-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/location-svc-1.0.0.tgz
+    version: 1.0.0
+  mongodb:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: mongodb service (mongodb)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - storage
+    - mongodb
+    name: mongodb:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/mongodb-1.0.0.tgz
+    version: 1.0.0
+  mysqldb:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: mysqldb service (mysqldb)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - storage
+    - mysqldb
+    name: mysqldb:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/mysqldb-1.0.0.tgz
+    version: 1.0.0
+  packet-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: parsing packet service (packet-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - rule engine
+    - mqtt
+    name: packet-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/packet-svc-1.0.0.tgz
+    version: 1.0.0
+  report-svc:
+  - apiVersion: v1
+    created: 2019-03-20T13:28:00.269469116Z
+    description: report service (report-svc)
+    digest: 29d801bf1e06077f3e241cb1e5cd9580bf2b9725d85d7221b1d27cdc9be5bf1d
+    keywords:
+    - Commercial
+    - Limited
+    - merc
+    - report
+    - export
+    name: report-svc:
+    tillerVersion: '>=2.6.0'
+    urls:
+    - https://github.com/heretse/environment-merciiot-staging/repo/report-svc-1.0.0.tgz
+    version: 1.0.0
+generated: 2019-07-08T18:39:30.655332381Z
