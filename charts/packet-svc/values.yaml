@@ -1,6 +1,8 @@
 # Default values for packet-svc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+knativeDeploy: false
+
 nameOverride: packet-svc
 
 replicaCount: 1
@@ -10,17 +12,31 @@ image:
   tag: dev
   pullPolicy: IfNotPresent
 
+# define environment variables here as a map of key: value
+env:
+
+# enable this flag to use knative serve to deploy the app
+knativeDeploy: false
+
 service:
   name: packet-svc
+  labels:
+  annotations:
   type: NodePort
-  externalPort: 31885
+  externalPort: 1880
   internalPort: 1880
+  nodePort: 31885
 
 ingress:
   enabled: false
   host:
   - chart-example.local
   tls:
+
+extraEnv:
+extraVolumeMounts:
+extraContainers:
+extraVolumes:
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -34,8 +50,10 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-#nodeSelector:
+nodeSelector: {}
 #  kubernetes.io/hostname: 10.5.88.24
+
+tolerations: []
 
 probePath: /
 livenessProbe:

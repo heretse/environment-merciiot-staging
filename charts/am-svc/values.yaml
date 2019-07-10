@@ -1,6 +1,7 @@
 # Default values for am-svc.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
 nameOverride: am-svc
 
 replicaCount: 1
@@ -18,9 +19,23 @@ knativeDeploy: false
 
 service:
   name: am-svc
+  labels:
+  annotations:
   type: NodePort
-  externalPort: 31880
+  externalPort: 1880
   internalPort: 1880
+  nodePort: 31888
+
+ingress:
+  enabled: false
+  host:
+  - chart-example.local
+  tls:
+
+extraEnv:
+extraVolumeMounts:
+extraContainers:
+extraVolumes:
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -34,8 +49,10 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-#nodeSelector:
+nodeSelector: {}
 #  kubernetes.io/hostname: 10.5.88.24
+
+tolerations: []
 
 probePath: /
 livenessProbe:
