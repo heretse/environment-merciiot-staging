@@ -14,7 +14,7 @@ keywords:
 - ICP
 - IKS
 - Beta
-home:https://github.com/heretse/environment-merciiot-staging
+home: https://github.com/heretse/environment-merciiot-staging
 maintainers:
 - name: Winston_hsieh
   email: Winston_hsieh@gemteks.com
