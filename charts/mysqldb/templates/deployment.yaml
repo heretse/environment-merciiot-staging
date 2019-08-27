@@ -61,11 +61,11 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: kubernetes.io/arch
-              operator: In
-              values:
-              - {{ .Values.arch }}
-    {{- with .Values.nodeSelector }}
+                operator: In
+                values:
+                - {{ .Values.arch }}
       nodeSelector:
+        {{- with .Values.nodeSelector }}
 {{ toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.tolerations }}
