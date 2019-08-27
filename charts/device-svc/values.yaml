@@ -7,8 +7,8 @@ nameOverride: device-svc
 replicaCount: 1
 
 image:
-  repository: draft
-  tag: dev
+  repository: 10.103.74.159:5000/merciiot/device-svc
+  tag: 1.0.13
   pullPolicy: IfNotPresent
 
 # define environment variables here as a map of key: value
