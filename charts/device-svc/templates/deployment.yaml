@@ -51,7 +51,6 @@ spec:
 {{- with .Values.extraContainers }}
 {{ tpl . $ | indent 8 }}
 {{- end }}
-    {{- with .Values.affinity }}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -61,8 +60,8 @@ spec:
                 operator: In
                 values:
                 - {{ .Values.arch }}
-    {{- with .Values.nodeSelector }}
       nodeSelector:
+        {{- with .Values.nodeSelector }}
 {{ toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.tolerations }}
