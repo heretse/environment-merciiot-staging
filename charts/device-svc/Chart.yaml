@@ -1,6 +1,6 @@
 apiVersion: v1
 name: device-svc
-version: 1.0.0
+version: 1.0.12
 description: A device-svc is device management service, provides APIs to access device info.
 keywords:
 - Node.js
