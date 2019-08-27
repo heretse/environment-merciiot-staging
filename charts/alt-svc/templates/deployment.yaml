@@ -57,9 +57,9 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: kubernetes.io/arch
-              operator: In
-              values:
-              - {{ .Values.arch }}
+                operator: In
+                values:
+                - {{ .Values.arch }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
