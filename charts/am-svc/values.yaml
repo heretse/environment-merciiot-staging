@@ -24,7 +24,7 @@ service:
   type: NodePort
   externalPort: 1880
   internalPort: 1880
-  nodePort: 31888
+  nodePort: 31880
 
 ingress:
   enabled: false
