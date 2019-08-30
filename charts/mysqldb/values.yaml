@@ -54,6 +54,9 @@ nodeSelector: {}
 
 tolerations: []
 
+tcpSocket:
+    port: 3306
+
 livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 10
