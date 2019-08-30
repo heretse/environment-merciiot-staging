@@ -32,8 +32,6 @@ ingress:
   tls:
 
 extraEnv:
-  MONGO_INITDB_ROOT_USERNAME: root
-  MONGO_INITDB_ROOT_PASSWORD: gemtek123
 extraVolumeMounts:
 extraContainers:
 extraVolumes:
