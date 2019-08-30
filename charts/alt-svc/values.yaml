@@ -7,8 +7,8 @@ nameOverride: alt-svc
 replicaCount: 1
 
 image:
-  repository: draft
-  tag: dev
+  repository: 10.103.74.159:5000/merciiot/alt-svc
+  tag: 1.0.21
   pullPolicy: IfNotPresent
 
 # define environment variables here as a map of key: value
