@@ -1,6 +1,6 @@
 apiVersion: v1
 name: report-svc
-version: 1.0.0
+version: 1.0.22
 description: A report-svc is report generation service, provides APIs to generate report for export.
 keywords:
 - Node.js
