@@ -1,9 +1,7 @@
 # mqtt-svc Helm Chart
 
 
-[mqtt-svc] is an alert management service and provides API to access alert info.
-
-Its database is using mongodb to store alert info.
+[mqtt-svc] is a mqtt service and allows subscribe and publish all topics.
 
 
 ## Introduction

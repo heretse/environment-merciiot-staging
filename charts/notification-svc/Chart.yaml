@@ -1,0 +1,23 @@
+apiVersion: v1
+name: mqtt-svc
+version: 1.0.0
+kubeVersion: ">=1.9.0-0"
+description: An mqtt-svc is a mqtt service, provides machine-to-machine connectivity protocol.
+keywords:
+- Node.js
+- server
+- microservices
+- amd64
+- ppc64le
+- Alarm
+- IIoT
+- ICP
+- IKS
+- Beta
+home: https://github.com/heretse/environment-merciiot-staging
+maintainers:
+- name: Winston_hsieh
+  email: Winston_hsieh@gemteks.com
+icon: https://avatars3.githubusercontent.com/u/5375661?s=200&v=4
+appVersion: "1.0"
+tillerVersion: ">=2.8.0"

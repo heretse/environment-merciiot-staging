@@ -6,20 +6,21 @@ pipeline {
       label "jenkins-maven"
   }
   environment {
-    DEPLOY_NAMESPACE    = "jx-staging"
-    ORG                 = 'merciiot'
-    DB_NAME_MONGO       = 'mongodb'
-    DB_NAME_MYSQL       = 'mysqldb'
-    APP_NAME_ALT        = 'alt-svc'
-    APP_NAME_AM         = 'am-svc'
-    APP_NAME_DATA       = 'data-svc'
-    APP_NAME_DEVICE     = 'device-svc'
-    APP_NAME_LAYOUT     = 'layout-svc'
-    APP_NAME_LOCATION   = 'location-svc'
-    APP_NAME_MQTT       = 'mqtt-svc'
-    APP_NAME_PACKET     = 'packet-svc'
-    APP_NAME_REPORT     = 'report-svc'
-    CHARTMUSEUM_CREDS   = credentials('jenkins-x-chartmuseum')
+    DEPLOY_NAMESPACE      = "jx-staging"
+    ORG                   = 'merciiot'
+    DB_NAME_MONGO         = 'mongodb'
+    DB_NAME_MYSQL         = 'mysqldb'
+    APP_NAME_ALT          = 'alt-svc'
+    APP_NAME_AM           = 'am-svc'
+    APP_NAME_DATA         = 'data-svc'
+    APP_NAME_DEVICE       = 'device-svc'
+    APP_NAME_LAYOUT       = 'layout-svc'
+    APP_NAME_LOCATION     = 'location-svc'
+    APP_NAME_MQTT         = 'mqtt-svc'
+    APP_NAME_NOTIFICATION = 'notification-svc'
+    APP_NAME_PACKET       = 'packet-svc'
+    APP_NAME_REPORT       = 'report-svc'
+    CHARTMUSEUM_CREDS     = credentials('jenkins-x-chartmuseum')
   }
   stages {
     stage('CI Build Release') {
@@ -75,6 +76,11 @@ pipeline {
           }
         }
         dir ('charts/mqtt-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('charts/notification-svc') {
           container('maven') {
             sh "make tag"
           }
@@ -149,7 +155,13 @@ pipeline {
         dir ('charts/mqtt-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
-            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_MQTT:\$(cat ../VERSION)"
+          }
+        }
+        dir ('charts/notification-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_NOTIFICATION:\$(cat ../VERSION)"
           }
         }
         dir ('charts/packet-svc') {
@@ -240,6 +252,14 @@ pipeline {
             sh 'make release'
           }
         }
+        dir ('charts/notification-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
         dir ('charts/packet-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../VERSION)'
@@ -288,6 +308,9 @@ pipeline {
           dir('charts/mqtt-svc') {
             sh 'jx step helm build'
           }
+          dir('charts/notification-svc') {
+            sh 'jx step helm build'
+          }
           dir('charts/packet-svc') {
             sh 'jx step helm build'
           }
@@ -325,6 +348,9 @@ pipeline {
             sh 'jx step helm apply'
           }
           dir('charts/mqtt-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('charts/notification-svc') {
             sh 'jx step helm apply'
           }
           dir('charts/packet-svc') {
