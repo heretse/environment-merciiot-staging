@@ -16,6 +16,7 @@ pipeline {
     APP_NAME_DEVICE     = 'device-svc'
     APP_NAME_LAYOUT     = 'layout-svc'
     APP_NAME_LOCATION   = 'location-svc'
+    APP_NAME_MQTT       = 'mqtt-svc'
     APP_NAME_PACKET     = 'packet-svc'
     APP_NAME_REPORT     = 'report-svc'
     CHARTMUSEUM_CREDS   = credentials('jenkins-x-chartmuseum')
@@ -69,6 +70,11 @@ pipeline {
           }
         }
         dir ('charts/location-svc') {
+          container('maven') {
+            sh "make tag"
+          }
+        }
+        dir ('charts/mqtt-svc') {
           container('maven') {
             sh "make tag"
           }
@@ -135,6 +141,12 @@ pipeline {
           }
         }
         dir ('charts/location-svc') {
+          container('maven') {
+            sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
+            sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
+          }
+        }
+        dir ('charts/mqtt-svc') {
           container('maven') {
             sh 'export VERSION=`cat ../../VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step post build --image \$JENKINS_X_DOCKER_REGISTRY_SERVICE_HOST:\$JENKINS_X_DOCKER_REGISTRY_SERVICE_PORT/$ORG/$APP_NAME_LOCATION:\$(cat ../VERSION)"
@@ -220,6 +232,14 @@ pipeline {
             sh 'make release'
           }
         }
+        dir ('charts/mqtt-svc') {
+          container('maven') {
+            sh 'jx step changelog --version v\$(cat ../../VERSION)'
+
+            // release the helm chart
+            sh 'make release'
+          }
+        }
         dir ('charts/packet-svc') {
           container('maven') {
             sh 'jx step changelog --version v\$(cat ../../VERSION)'
@@ -265,6 +285,9 @@ pipeline {
           dir('charts/location-svc') {
             sh 'jx step helm build'
           }
+          dir('charts/mqtt-svc') {
+            sh 'jx step helm build'
+          }
           dir('charts/packet-svc') {
             sh 'jx step helm build'
           }
@@ -299,6 +322,9 @@ pipeline {
             sh 'jx step helm apply'
           }
           dir('charts/location-svc') {
+            sh 'jx step helm apply'
+          }
+          dir('charts/mqtt-svc') {
             sh 'jx step helm apply'
           }
           dir('charts/packet-svc') {

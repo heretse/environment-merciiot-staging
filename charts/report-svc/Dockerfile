@@ -12,6 +12,8 @@ RUN npm install --save node-red-node-mongodb
 
 RUN npm install --save node-red-node-mysql
 
+RUN npm install --save node-red-contrib-spreadsheet-in
+
 WORKDIR /data
 
 COPY ./flows.json flows.json

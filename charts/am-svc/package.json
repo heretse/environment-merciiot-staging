@@ -1,5 +1,14 @@
 {
   "name": "am-svc",
   "description": "Account Management for MERC System",
-  "version": "1.1.0"
+  "version": "1.1.0",
+  "dependencies": {
+    "node-red-contrib-cloud-firebase-auth": "~0.2.0",
+    "node-red-contrib-crypto-js": "~0.1.1",
+    "node-red-contrib-moment": "~3.0.1",
+    "node-red-contrib-nr-ldapauth": "~1.0.14",
+    "node-red-contrib-redis": "~1.1.7",
+    "node-red-node-cf-cloudant": "~0.2.17",
+    "node-red-node-mysql": "0.0.16"
+  }
 }

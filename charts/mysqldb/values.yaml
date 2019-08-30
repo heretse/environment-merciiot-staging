@@ -33,6 +33,7 @@ ingress:
   tls:
 
 extraEnv:
+  MYSQL_ROOT_PASSWORD: gemtek123
 extraVolumeMounts:
 extraContainers:
 extraVolumes:

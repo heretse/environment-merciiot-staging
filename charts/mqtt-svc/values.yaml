@@ -1,0 +1,76 @@
+# Default values for mqtt-svc.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: mqtt-svc
+
+replicaCount: 1
+
+image:
+  repository: draft
+  tag: dev
+  pullPolicy: IfNotPresent
+
+# define environment variables here as a map of key: value
+env:
+
+# enable this flag to use knative serve to deploy the app
+knativeDeploy: false
+
+service:
+  name: mqtt-svc
+  labels:
+  annotations:
+  type: NodePort
+  externalPort: 1883
+  internalPort: 1883
+  nodePort: 31883
+
+ingress:
+  enabled: false
+  host:
+  - chart-example.local
+  tls:
+
+extraEnv:
+extraVolumeMounts:
+extraContainers:
+extraVolumes:
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+#  kubernetes.io/hostname: 10.5.88.24
+
+tolerations: []
+
+probePath: /
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+terminationGracePeriodSeconds: 10
+
+#nodeAffinity
+arch: amd64
+
+# Annotations to be added to mqtt-svc pods
+podAnnotations:
+  productName: "MQTT Service"
+  productID: "merciiot-mqtt-svc"
+  productVersion: "v1.0.0"

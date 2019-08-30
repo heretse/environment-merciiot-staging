@@ -1,5 +1,16 @@
 {
   "name": "report-svc",
   "description": "Report Service for MERC System",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "node-red-contrib-excel": "0.0.3",
+    "node-red-contrib-file-buffer": "0.0.3",
+    "node-red-contrib-moment": "~2.0.7",
+    "node-red-contrib-objectid": "~0.7.2",
+    "node-red-contrib-redis": "~1.1.7",
+    "node-red-contrib-spreadsheet-in": "~0.3.1",
+    "node-red-node-cf-cloudant": "~0.2.17",
+    "node-red-node-mongodb": "0.0.14",
+    "node-red-node-mysql": "0.0.16"
+  }
 }

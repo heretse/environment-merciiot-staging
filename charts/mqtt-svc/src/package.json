@@ -1,0 +1,32 @@
+{
+  "name": "merc_mqtt_broker",
+  "version": "1.0.23",
+  "description": "MERC broker with message publish and subscribe",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "amqplib": "^0.5.2",
+    "async": "^2.6.0",
+    "axios": "^0.18.0",
+    "body-parser": "~1.0.1",
+    "crypto-js": "^3.1.9-1",
+    "express": "~4.0.0",
+    "http-auth": "~2.2.8",
+    "moment-timezone": "^0.5.14",
+    "mongoose": "^5.0.2",
+    "mongoose-paginate": "^5.0.3",
+    "morgan": "^1.9.0",
+    "mosca": "^2.7.0",
+    "mysql": "~2.9.0",
+    "node-epc": "^0.1.1",
+    "sequelize": "~3.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andy He",
+  "license": "ISC"
+}

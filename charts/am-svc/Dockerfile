@@ -12,6 +12,8 @@ RUN npm install --save node-red-node-mysql
 
 RUN npm install --save node-red-contrib-moment
 
+RUN npm install --save node-red-contrib-cloud-firebase-auth
+
 WORKDIR /data
 
 COPY ./flows.json flows.json
