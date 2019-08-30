@@ -1,6 +1,6 @@
 apiVersion: v1
 name: mqtt-svc
-version: 1.0.0
+version: 1.0.24
 kubeVersion: ">=1.9.0-0"
 description: An mqtt-svc is a mqtt service, provides machine-to-machine connectivity protocol.
 keywords:
