@@ -18,12 +18,12 @@
 if supports_scc; then 
   # Create the custom SCC for OpenShift
   echo "Creating SecurityContextConstraints..."
-  kubectl apply -f merc-alt-svc-scc.yaml --validate=false
+  kubectl apply -f merc-mqtt-svc-scc.yaml --validate=false
 fi
 
 if supports_psp; then 
   # Create the PodSecurityPolicy and ClusterRole for all releases of this chart.
   echo "Creating the PodSecurityPolicy..."
-  kubectl apply -f merc-alt-svc-psp.yaml
-  kubectl apply -f merc-alt-svc-cr.yaml
+  kubectl apply -f merc-mqtt-svc-psp.yaml
+  kubectl apply -f merc-mqtt-svc-cr.yaml
 fi

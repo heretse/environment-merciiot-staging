@@ -1,12 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: merc-alt-svc-clusterrole
+  name: merc-mqtt-svc-clusterrole
 rules:
 - apiGroups:
   - extensions
   resourceNames:
-  - merc-alt-svc-psp
+  - merc-mqtt-svc-psp
   resources:
   - podsecuritypolicies
   verbs:

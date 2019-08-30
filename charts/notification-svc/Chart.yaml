@@ -1,8 +1,8 @@
 apiVersion: v1
-name: mqtt-svc
+name: notification-svc
 version: 1.0.0
 kubeVersion: ">=1.9.0-0"
-description: An mqtt-svc is a mqtt service, provides machine-to-machine connectivity protocol.
+description: An notification-svc is a notify service, provides APIs to send notification.
 keywords:
 - Node.js
 - server
