@@ -1,0 +1,338 @@
+version: '3'
+services:
+  cloudant-developer:
+    image: merciiot/cloudant:1.0.0
+    container_name: cloudant-developer
+    restart: always
+    ports:
+      - 8081:80
+    volumes:
+      - cloudant_data:/srv
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  mysqldb-merc:
+    image: merciiot/mysqldb-merc:1.0.0
+    container_name: mysqldb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: gemtek123
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  rabbitmq-svc:
+    image: merciiot/rabbitmq-svc:1.0.0
+    container_name: rabbitmq-svc
+    ports:
+      - 15672:15672
+      - 5672:5672
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  mongodb-merc:
+    image: merciiot/mongodb-merc:1.0.0
+    container_name: mongodb
+    restart: always
+    user: ${USER}
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/bitnami
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: gemtek123
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  redis-merc:
+    image: bitnami/redis:latest
+    container_name: redis-svr
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  notification-svc:
+    image: merciiot/notification-svc:1.0.0
+    container_name: notification-svc
+    restart: always
+    ports:
+      - 8082:8080
+    links:
+      - mysqldb-merc
+      - rabbitmq-svc
+    depends_on:
+      - 'rabbitmq-svc'
+      - 'mysqldb-merc'
+  am-svc:
+    image: merciiot/am-svc:1.0.0
+    container_name: am-svc
+    restart: always
+    ports:
+      - '1880:1880'
+    depends_on:
+      - 'mysqldb-merc'
+      - 'redis-merc'
+      - 'guard-svc'
+    links:
+      - mysqldb-merc
+      - redis-merc
+      - guard-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  layout-svc:
+    image: merciiot/layout-svc:1.0.0
+    container_name: layout-svc
+    restart: always
+    ports:
+      - '1881:1880'
+    depends_on:
+      - 'cloudant-developer'
+      - 'redis-merc'
+    links:
+      - cloudant-developer
+      - redis-merc
+      - am-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  location-svc:
+    image: merciiot/location-svc:1.0.0
+    container_name: location-svc
+    restart: always
+    ports:
+      - 1882:1880
+    depends_on:
+      - 'cloudant-developer'
+      - 'redis-merc'
+    links:
+      - cloudant-developer
+      - redis-merc
+      - am-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  mqtt-svc:
+    image: merciiot/mqtt-svc:1.0.0
+    container_name: mqtt-svc
+    restart: always
+    ports:
+      - 1883:1883
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  packet-svc:
+    image: merciiot/packet-svc:1.1.0
+    container_name: packet-svc
+    restart: always
+    ports:
+      - '1885:1880'
+    depends_on:
+      - 'mqtt-svc'
+    links:
+      - 'mqtt-svc'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  data-svc:
+    image: merciiot/data-svc:1.1.0
+    container_name: data-svc
+    restart: always
+    ports:
+      - '1886:1880'
+    depends_on:
+      - 'mongodb-merc'
+      - 'redis-merc'
+    links:
+      - mongodb-merc
+      - redis-merc
+      - am-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  device-svc:
+    image: merciiot/device-svc:1.1.0
+    container_name: device-svc
+    restart: always
+    ports:
+      - '1887:1880'
+    depends_on:
+      - mongodb-merc
+      - redis-merc
+      - mysqldb-merc
+    links:
+      - mongodb-merc
+      - redis-merc
+      - mysqldb-merc
+      - am-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  alt-svc:
+    image: merciiot/alt-svc:1.1.0
+    container_name: alt-svc
+    restart: always
+    ports:
+      - 1888:1880
+    depends_on:
+      - mongodb-merc
+      - redis-merc
+      - mysqldb-merc
+      - mqtt-svc
+      - rabbitmq-svc
+    links:
+      - mongodb-merc
+      - redis-merc
+      - mysqldb-merc
+      - mqtt-svc
+      - rabbitmq-svc
+      - device-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  report-svc:
+    image: merciiot/report-svc:latest
+    container_name: report-svc
+    restart: always
+    ports:
+      - 1889:1880
+    depends_on:
+      - mongodb-merc
+    links:
+      - mongodb-merc
+      - am-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  status-svc:
+    image: merciiot/status-svc:1.0.0
+    container_name: status-svc
+    restart: always
+    ports:
+      - 1891:1891
+    depends_on:
+      - mongodb-merc
+    links:
+      - mongodb-merc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  guard-svc:
+    image: merciiot/guard-svc:1.0.0
+    container_name: guard-svc
+    restart: always
+    ports:
+      - 1892:1892
+    depends_on:
+      - mongodb-merc
+      - cert-svc
+    links:
+      - mongodb-merc
+      - cert-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  cert-svc:
+    image: merciiot/cert-svc:1.0.0
+    container_name: cert-svc
+    restart: always
+    ports:
+      - 1893:1893
+    depends_on:
+      - mongodb-merc
+    links:
+      - mongodb-merc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  scheduler-auth-svc:
+    image: merciiot/scheduler-auth-svc:1.0.0
+    container_name: scheduler-auth-svc
+    restart: always
+    ports:
+      - 1894:1880
+    depends_on:
+      - mongodb-merc
+    links:
+      - mongodb-merc
+      - am-svc
+      - cert-svc
+      - status-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+  merc_portal:
+    image: merciiot/merc-portal:gemteks
+    container_name: merc_portal
+    restart: always
+    ports:
+      - '80:80'
+    depends_on:
+      - am-svc
+      - layout-svc
+      - location-svc
+      - data-svc
+      - device-svc
+      - alt-svc
+      - report-svc
+      - notification-svc
+      - guard-svc
+      - cert-svc
+      - status-svc
+      - scheduler-auth-svc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100k'
+        max-file: '5'
+volumes:
+  mysql_data:
+  redis_data:
+  mongo_data:
+  cloudant_data:
