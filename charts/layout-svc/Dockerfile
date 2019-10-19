@@ -2,7 +2,7 @@ FROM nodered/node-red-docker
 
 RUN npm install --save node-red-bluemix-nodes
 
-RUN npm install --save node-red-contrib-redis
+RUN npm install --save node-red-contrib-redis@1.1.7
 
 RUN npm install --save node-red-node-cf-cloudant
 

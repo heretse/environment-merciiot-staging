@@ -4,13 +4,15 @@ RUN npm install --save node-red-contrib-crypto-js
 
 RUN npm install --save node-red-contrib-moment
 
-RUN npm install --save node-red-contrib-redis
+RUN npm install --save node-red-contrib-redis@1.1.7
 
 RUN npm install --save node-red-node-cf-cloudant
 
 RUN npm install --save node-red-node-mongodb
 
 RUN npm install --save node-red-node-mysql
+
+RUN npm install --save node-red-contrib-objectid
 
 WORKDIR /data
 

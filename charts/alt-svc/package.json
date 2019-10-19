@@ -1,7 +1,7 @@
 {
   "name": "alt-svc",
   "description": "Alert Service for MERC System",
-  "version": "1.0.0",
+  "version": "1.2.3",
   "dependencies": {
     "node-red-contrib-amqp2": "~0.1.0",
     "node-red-contrib-crypto-js": "~0.1.1",

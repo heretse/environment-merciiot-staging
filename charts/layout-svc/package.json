@@ -1,7 +1,7 @@
 {
   "name": "layout-svc",
   "description": "Layout Service for MERC System",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "node-red-bluemix-nodes": "~1.1.10",
     "node-red-contrib-redis": "~1.1.7",

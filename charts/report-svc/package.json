@@ -1,7 +1,7 @@
 {
   "name": "report-svc",
   "description": "Report Service for MERC System",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "node-red-contrib-excel": "0.0.3",
     "node-red-contrib-file-buffer": "0.0.3",

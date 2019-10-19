@@ -1,7 +1,7 @@
 {
   "name": "location-svc",
   "description": "Location Service for MERC System",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "node-red-contrib-redis": "~1.1.7",
     "node-red-node-cf-cloudant": "~0.2.17",

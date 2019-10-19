@@ -1,7 +1,7 @@
 {
   "name": "packet-svc",
   "description": "Packet Service for MERC System",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "dependencies": {
     "node-red-contrib-moment": "~2.0.7",
     "node-red-contrib-redis": "~1.1.7",

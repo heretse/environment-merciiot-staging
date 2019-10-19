@@ -43,7 +43,7 @@ CREATE TABLE `api_cp` (
 
 LOCK TABLES `api_cp` WRITE;
 /*!40000 ALTER TABLE `api_cp` DISABLE KEYS */;
-INSERT INTO `api_cp` VALUES (1,'Gemtek','2018-08-17 06:51:54',1,NULL,NULL);
+INSERT INTO `api_cp` VALUES (1,'Gemtek',current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_cp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +72,7 @@ CREATE TABLE `api_cp_mapping` (
 
 LOCK TABLES `api_cp_mapping` WRITE;
 /*!40000 ALTER TABLE `api_cp_mapping` DISABLE KEYS */;
-INSERT INTO `api_cp_mapping` VALUES (1,1,32,'2018-11-28 12:51:53',1,NULL,NULL);
+INSERT INTO `api_cp_mapping` VALUES (1,1,32,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_cp_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +138,7 @@ CREATE TABLE `api_function` (
 
 LOCK TABLES `api_function` WRITE;
 /*!40000 ALTER TABLE `api_function` DISABLE KEYS */;
-INSERT INTO `api_function` VALUES (1,'DASHBOARD','/dashboard',-1,0,'N',0,15,'2018-08-17 06:51:57',1,NULL,NULL),(8,'ACTIVATE','/activate',0,1,'N',0,1,'2018-08-17 06:51:57',1,NULL,NULL),(15,'BINDING','/bind',0,2,'N',0,1,'2018-08-17 06:51:57',1,NULL,NULL),(22,'DEVICE','/device',-1,3,'N',0,22,'2018-08-17 06:51:57',1,NULL,NULL),(29,'USER','/admin/users',0,0,'N',0,29,'2018-08-17 06:51:57',1,'2019-03-08 06:27:57',1),(36,'ROLE','/admin/roles',0,1,'N',0,29,'2018-08-17 06:51:57',1,'2019-03-08 06:27:57',1),(43,'FUNCTION','/admin/functions',0,2,'N',0,29,'2018-08-17 06:51:58',1,'2019-03-08 06:27:57',1),(50,'CP','/admin/cps',0,4,'N',0,29,'2018-08-17 06:51:58',1,NULL,NULL),(57,'GRP','/admin/grps',0,3,'N',0,29,'2018-08-17 06:51:58',1,'2019-03-08 06:27:57',1),(58,'EVENT','/event',-1,1,'N',0,30,'2018-08-17 06:54:55',1,NULL,NULL),(59,'TAG','/tag',-1,1,'N',0,31,'2018-08-17 06:57:58',1,NULL,NULL),(85,'NOTIFY_DGRP','/notify/dgrps',0,0,'N',1,57,'2019-03-07 06:26:35',1,'2019-03-08 05:54:32',1),(87,'NOTIFY_USER','/notify/users',0,1,'N',1,57,'2019-03-07 06:28:29',1,'2019-03-08 05:54:32',1),(88,'NOTIFY_UGRP','/notify/ugrps',0,2,'N',1,57,'2019-03-07 06:28:40',1,'2019-03-08 05:54:32',1),(92,'PERSONNEL','/personnel',-1,0,'N',1,58,'2019-03-07 07:30:32',1,NULL,NULL);
+INSERT INTO `api_function` VALUES (1,'DASHBOARD','/dashboard',-1,0,'N',0,15,current_time(),1,NULL,NULL),(8,'ACTIVATE','/activate',0,1,'N',0,1,current_time(),1,NULL,NULL),(15,'BINDING','/bind',0,2,'N',0,1,current_time(),1,NULL,NULL),(22,'DEVICE','/device',-1,3,'N',0,22,current_time(),1,NULL,NULL),(29,'USER','/admin/users',0,0,'N',0,29,current_time(),1,NULL,NULL),(36,'ROLE','/admin/roles',0,1,'N',0,29,current_time(),1,NULL,NULL),(43,'FUNCTION','/admin/functions',0,2,'N',0,29,current_time(),1,NULL,NULL),(50,'CP','/admin/cps',0,4,'N',0,29,current_time(),1,NULL,NULL),(57,'GRP','/admin/grps',0,3,'N',0,29,current_time(),1,NULL,NULL),(58,'EVENT','/event',-1,1,'N',0,30,current_time(),1,NULL,NULL),(59,'TAG','/tag',-1,1,'N',0,31,current_time(),1,NULL,NULL),(85,'NOTIFY_DGRP','/notify/dgrps',0,0,'N',1,57,current_time(),1,NULL,NULL),(87,'NOTIFY_USER','/notify/users',0,1,'N',1,57,current_time(),1,NULL,NULL),(88,'NOTIFY_UGRP','/notify/ugrps',0,2,'N',1,57,current_time(),1,NULL,NULL),(92,'PERSONNEL','/personnel',-1,0,'N',1,58,current_time(),1,NULL,NULL),(95,'ALARM','/alert',-1,0,'N',1,59,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_function` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +166,7 @@ CREATE TABLE `api_function_mapping` (
 
 LOCK TABLES `api_function_mapping` WRITE;
 /*!40000 ALTER TABLE `api_function_mapping` DISABLE KEYS */;
-INSERT INTO `api_function_mapping` VALUES (1,1,'2018-11-29 01:55:11',1,'2019-03-13 09:02:17',1),(1,22,'2018-11-29 01:55:11',1,'2019-03-13 09:02:17',1),(1,29,'2018-11-29 01:55:11',1,'2019-03-13 09:02:17',1),(1,36,'2018-11-29 01:55:12',1,'2019-03-13 09:02:18',1),(1,43,'2018-11-29 01:55:12',1,'2019-03-13 09:02:18',1),(1,57,'2018-11-29 01:55:12',1,'2019-03-13 09:02:18',1),(1,58,'2018-11-29 01:55:12',1,'2019-03-13 09:02:18',1),(1,59,'2019-01-18 02:16:58',1,'2019-03-13 09:02:18',1),(1,85,'2019-03-07 06:31:07',1,'2019-03-13 09:02:18',1),(1,87,'2019-03-07 06:31:07',1,'2019-03-13 09:02:18',1),(1,88,'2019-03-07 06:31:07',1,'2019-03-13 09:02:18',1),(1,92,'2019-03-07 07:31:05',1,'2019-03-13 09:02:18',1),(1,95,'2019-03-13 09:02:18',1,NULL,NULL),(15,1,'2018-12-06 08:15:07',1,NULL,NULL),(15,22,'2018-08-17 06:52:29',1,'2018-12-06 08:15:07',1);
+INSERT INTO `api_function_mapping` VALUES (1,1,current_time(),1,NULL,NULL),(1,22,current_time(),1,NULL,NULL),(1,29,current_time(),1,NULL,NULL),(1,36,current_time(),1,NULL,NULL),(1,43,current_time(),1,NULL,NULL),(1,57,current_time(),1,NULL,NULL),(1,58,current_time(),1,NULL,NULL),(1,59,current_time(),1,NULL,NULL),(1,85,current_time(),1,NULL, NULL),(1,87,current_time(),1,NULL,NULL),(1,88,current_time(),1,NULL,NULL),(1,92,current_time(),1,NULL,NULL),(1,95,current_time(),1,NULL,NULL),(8,1,current_time(),1,NULL,NULL),(8,22,current_time(),1,NULL,NULL),(8,58,current_time(),1,NULL,NULL),(15,1,current_time(),1,NULL,NULL),(15,22,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_function_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,7 +195,7 @@ CREATE TABLE `api_grp` (
 
 LOCK TABLES `api_grp` WRITE;
 /*!40000 ALTER TABLE `api_grp` DISABLE KEYS */;
-INSERT INTO `api_grp` VALUES (1,'LoRa','2018-08-17 06:51:54',1,NULL,NULL),(15,'Dashboard','2018-08-17 06:51:54',1,NULL,NULL),(22,'DEVICE','2018-08-17 06:51:54',1,NULL,NULL),(29,'ADMIN','2018-08-17 06:51:55',1,NULL,NULL),(30,'Event','2018-08-17 06:51:55',1,NULL,NULL),(31,'Tag','2018-08-17 06:51:55',1,NULL,NULL),(57,'Notify','2019-03-07 06:23:31',1,'2019-03-07 06:41:03',1),(58,'Personnel','2019-03-07 07:29:29',1,NULL,NULL),(59,'ALARM','2019-03-13 08:53:54',1,NULL,NULL);
+INSERT INTO `api_grp` VALUES (1,'LoRa',current_time(),1,NULL,NULL),(15,'Dashboard',current_time(),1,NULL,NULL),(22,'DEVICE',current_time(),1,NULL,NULL),(29,'ADMIN',current_time(),1,NULL,NULL),(30,'Event',current_time(),1,NULL,NULL),(31,'Tag',current_time(),1,NULL,NULL),(57,'Notify',current_time(),1,NULL,NULL),(58,'Personnel',current_time(),1,NULL,NULL),(59,'ALARM',current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_grp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +250,7 @@ CREATE TABLE `api_ra_mapping` (
 
 LOCK TABLES `api_ra_mapping` WRITE;
 /*!40000 ALTER TABLE `api_ra_mapping` DISABLE KEYS */;
-INSERT INTO `api_ra_mapping` VALUES (6,8,15,1,1,1,1,'2018-08-17 06:51:56',1,NULL,NULL),(7,8,1,2,1,1,1,'2018-08-17 06:51:57',1,NULL,NULL),(8,8,22,3,1,1,1,'2018-08-17 06:51:57',1,NULL,NULL),(9,8,29,4,1,1,1,'2018-08-17 06:51:57',1,NULL,NULL),(10,15,15,1,1,1,1,'2018-08-17 06:51:57',1,'2019-03-08 06:27:33',1),(12,15,22,2,1,1,1,'2018-08-17 06:51:57',1,'2019-03-08 06:27:33',1),(21,1,15,1,1,1,1,'2018-11-28 12:56:27',1,'2019-03-13 09:01:41',1),(22,1,22,2,1,1,1,'2018-11-28 12:56:27',1,'2019-03-13 09:01:41',1),(23,1,29,3,1,1,1,'2018-11-28 12:56:27',1,'2019-03-13 09:01:41',1),(45,1,31,5,1,1,1,'2019-03-05 08:41:17',1,'2019-03-13 09:01:41',1),(48,1,30,4,1,1,1,'2019-03-05 08:43:26',1,'2019-03-13 09:01:41',1),(59,1,57,7,1,1,1,'2019-03-07 06:30:55',1,'2019-03-13 09:01:41',1),(60,1,58,8,1,1,1,'2019-03-07 07:30:58',1,'2019-03-13 09:01:41',1),(61,1,59,9,1,1,1,'2019-03-13 09:01:41',1,NULL,NULL);
+INSERT INTO `api_ra_mapping` VALUES (6,8,15,1,1,1,1,current_time(),1,NULL,NULL),(8,8,22,2,1,1,1,current_time(),1,NULL,NULL),(7,8,30,3,1,1,1,current_time(),1,NULL,NULL),(9,8,29,4,1,1,1,current_time(),1,NULL,NULL),(10,15,15,1,1,1,1,current_time(),1,NULL,NULL),(12,15,22,2,1,1,1,current_time(),1,NULL,NULL),(21,1,15,1,1,1,1,current_time(),1,NULL,NULL),(22,1,22,2,1,1,1,current_time(),1,NULL,NULL),(45,1,31,3,1,1,1,current_time(),1,NULL,NULL),(59,1,57,4,1,1,1,current_time(),1,NULL,NULL),(61,1,59,5,1,1,1,current_time(),1,NULL,NULL),(60,1,58,6,1,1,1,current_time(),1,NULL,NULL),(48,1,30,7,1,1,1,current_time(),1,NULL,NULL),(23,1,29,8,1,1,1,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_ra_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +282,7 @@ CREATE TABLE `api_role` (
 
 LOCK TABLES `api_role` WRITE;
 /*!40000 ALTER TABLE `api_role` DISABLE KEYS */;
-INSERT INTO `api_role` VALUES (1,'superAdmin',0,0,0,'2018-08-17 06:51:55',1,NULL,NULL),(8,'generalAdmin',1,0,0,'2018-08-17 06:51:55',1,NULL,NULL),(15,'generalUser',2,0,0,'2018-08-17 06:51:56',1,NULL,NULL);
+INSERT INTO `api_role` VALUES (1,'superAdmin',0,0,0,current_time(),1,NULL,NULL),(8,'generalAdmin',1,0,0,current_time(),1,NULL,NULL),(15,'generalUser',2,0,0,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `api_system_properties` (
 
 LOCK TABLES `api_system_properties` WRITE;
 /*!40000 ALTER TABLE `api_system_properties` DISABLE KEYS */;
-INSERT INTO `api_system_properties` VALUES ('ACC_FORMAT','^[a-zA-Z0-9._-s]{3,20}$','pwd check format','ALL','2018-08-17 06:51:54',1,NULL,NULL),('CERT_EXPIRE','600','device token expired time','ALL','2018-08-17 06:51:54',1,NULL,NULL),('DL_DELAY_TIME','1000','DL delay time by millisecond','ALL','2018-10-08 09:26:20',1,NULL,NULL),('EMAIL_FORMAT','^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z-0-9]+\\.)+[a-zA-Z]{2,}))$','email check format','ALL','2018-08-17 06:51:53',1,NULL,NULL),('NOTIFY_TOKEN','1674a1969e6a5665f2140db0f9369a76','notify-svc token','ALL','2019-03-19 03:06:22',1,NULL,NULL),('PWD_FORMAT','^[a-zA-Z0-9%+._@-s]{8,15}$','pwd check format','ALL','2018-08-17 06:51:54',1,NULL,NULL),('TOKEN_EXPIRE','86400','user token expired time','ALL','2018-08-17 06:51:54',1,NULL,NULL);
+INSERT INTO `api_system_properties` VALUES ('ACC_FORMAT','^[a-zA-Z0-9._-s]{3,20}$','pwd check format','ALL',current_time(),1,NULL,NULL),('CERT_EXPIRE','600','device token expired time','ALL',current_time(),1,NULL,NULL),('DL_DELAY_TIME','1000','DL delay time by millisecond','ALL',current_time(),1,NULL,NULL),('EMAIL_FORMAT','^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z-0-9]+\\.)+[a-zA-Z]{2,}))$','email check format','ALL',current_time(),1,NULL,NULL),('NOTIFY_TOKEN','1674a1969e6a5665f2140db0f9369a76','notify-svc token','ALL',current_time(),1,NULL,NULL),('PWD_FORMAT','^[a-zA-Z0-9%+._@-s]{8,15}$','pwd check format','ALL',current_time(),1,NULL,NULL),('TOKEN_EXPIRE','86400','user token expired time','ALL',current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_system_properties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +352,7 @@ CREATE TABLE `api_user` (
 
 LOCK TABLES `api_user` WRITE;
 /*!40000 ALTER TABLE `api_user` DISABLE KEYS */;
-INSERT INTO `api_user` VALUES (1,1,1,'sysAdmin','U2FsdGVkX1+i7l3qj1yfscFyNUof914vQUcwaA5bP3M=',NULL,NULL,NULL,0,'','sysAdmin@gemteks.com',0,0,'2018-08-17 06:51:55',1,'2019-01-21 10:13:36',1),(2,1,1,'demoIIoT','U2FsdGVkX1+i7l3qj1yfscFyNUof914vQUcwaA5bP3M=',NULL,NULL,NULL,0,'','demoIIoT@gemteks.com',0,0,'2018-08-17 06:51:55',1,'2019-01-21 11:20:33',1);
+INSERT INTO `api_user` VALUES (1,1,1,'sysAdmin','U2FsdGVkX1+i7l3qj1yfscFyNUof914vQUcwaA5bP3M=',NULL,NULL,NULL,0,'','sysAdmin@gemteks.com',0,0,current_time(),1,NULL,NULL);
 /*!40000 ALTER TABLE `api_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -568,7 +568,7 @@ CREATE TABLE `notification_method` (
 
 LOCK TABLES `notification_method` WRITE;
 /*!40000 ALTER TABLE `notification_method` DISABLE KEYS */;
-INSERT INTO `notification_method` VALUES (1,NULL,'eMail',NULL,'2018-02-07 16:31:41',NULL),(2,NULL,'WeChat',NULL,'2018-02-07 16:31:59',NULL),(3,NULL,'LINE',NULL,'2018-02-07 16:31:59',NULL),(4,NULL,'APP',NULL,'2018-02-07 16:31:59',NULL);
+INSERT INTO `notification_method` VALUES (1,NULL,'eMail',NULL,current_time(),NULL),(2,NULL,'WeChat',NULL,current_time(),NULL),(3,NULL,'LINE',NULL,current_time(),NULL),(4,NULL,'APP',NULL,current_time(),NULL),(5,NULL,'FreePP',NULL,current_time(),NULL);
 /*!40000 ALTER TABLE `notification_method` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -746,7 +746,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,NULL,'admin','gemtek2018','1674a1969e6a5665f2140db0f9369a76','','2018-03-09 10:15:07','2018-02-28 11:13:44');
+INSERT INTO `user` VALUES (1,NULL,'admin','gemtek2018','1674a1969e6a5665f2140db0f9369a76','',current_time(),NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
