@@ -1,27 +1,14 @@
-FROM nodered/node-red-docker
+FROM gradle:4.10.0-jdk8-alpine AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle assemble --no-daemon 
 
-RUN npm install --save node-red-contrib-crypto-js
+FROM openjdk:8-jdk-alpine
 
-RUN npm install --save node-red-contrib-nr-ldapauth
+EXPOSE 1880
 
-RUN npm install --save node-red-contrib-redis@1.1.7
+RUN mkdir /app
 
-RUN npm install --save node-red-node-cf-cloudant
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/am-svc.jar
 
-RUN npm install --save node-red-node-mysql
-
-RUN npm install --save node-red-contrib-moment
-
-RUN npm install --save node-red-contrib-cloud-firebase-auth
-
-WORKDIR /data
-
-COPY ./flows.json flows.json
-
-COPY ./flows_cred.json flows_cred.json
-
-COPY ./package.json package.json
-
-COPY ./settings.js settings.js
-
-WORKDIR /usr/src/node-red
+ENTRYPOINT ["java","-jar","/app/am-svc.jar"]

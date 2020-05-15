@@ -1,4 +1,4 @@
-FROM nodered/node-red-docker
+FROM nodered/node-red-docker:slim-v8
 
 RUN npm install --save node-red-contrib-excel
 
@@ -15,6 +15,8 @@ RUN npm install --save node-red-node-mysql
 RUN npm install --save node-red-contrib-spreadsheet-in
 
 RUN npm install --save node-red-contrib-objectid
+
+RUN mkdir -p /data/report
 
 WORKDIR /data
 

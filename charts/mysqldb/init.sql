@@ -451,11 +451,11 @@ DROP TABLE IF EXISTS `event_serial_data`;
 CREATE TABLE `event_serial_data` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '数据库主键',
   `app_id` varchar(128) DEFAULT NULL COMMENT '应用平台id',
-  `notification_group` varchar(20000) DEFAULT NULL COMMENT '通报组名称,json格式，包含通报对象的方式和通报账号信息',
+  `notification_group` varchar(2000) DEFAULT NULL COMMENT '通报组名称,json格式，包含通报对象的方式和通报账号信息',
   `terminal_group` varchar(255) DEFAULT NULL COMMENT '终端组名称',
   `mac` varchar(50) DEFAULT NULL COMMENT '终端mac地址',
   `description` varchar(1000) DEFAULT NULL COMMENT '消息内容描述信息',
-  `extra` varchar(255) DEFAULT NULL COMMENT '保留字段',
+  `extra` varchar(10000) DEFAULT NULL COMMENT '保留字段',
   `recv` datetime DEFAULT NULL COMMENT '来自应用系统的事件时间，即告警时间',
   `in_time` datetime DEFAULT NULL COMMENT '入库时间',
   `up_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -501,11 +501,11 @@ CREATE TABLE `notification_data` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '数据库主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '创建者id',
   `app_id` varchar(128) DEFAULT NULL COMMENT '应用平台id',
-  `notification_group` varchar(20000) DEFAULT NULL COMMENT '通报组名称,json格式，包含通报对象的方式和通报账号信息',
+  `notification_group` varchar(2000) DEFAULT NULL COMMENT '通报组名称,json格式，包含通报对象的方式和通报账号信息',
   `terminal_group` varchar(255) DEFAULT NULL COMMENT '终端组名称',
   `mac` varchar(50) DEFAULT NULL COMMENT '终端mac地址',
   `description` varchar(1000) DEFAULT NULL COMMENT '消息内容描述信息',
-  `extra` varchar(255) DEFAULT NULL COMMENT '保留字段',
+  `extra` varchar(10000) DEFAULT NULL COMMENT '保留字段',
   `recv` datetime DEFAULT NULL COMMENT '来自应用系统的事件时间，即告警时间',
   `delay` bigint(20) DEFAULT NULL COMMENT '发报延时',
   `delivery_time` datetime DEFAULT NULL COMMENT '发报时间',
@@ -763,6 +763,40 @@ CREATE TABLE `user_role_relation` (
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户与角色关系表';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `template`;
+CREATE TABLE `template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Template id',
+  `type` varchar(10) DEFAULT NULL COMMENT 'Template type',
+  `content` varchar(10000) DEFAULT NULL COMMENT 'Template content',
+  `createTime` datetime DEFAULT NULL COMMENT 'create time',
+  `updateTime` datetime DEFAULT NULL COMMENT 'update time',
+  `subject` varchar(100) DEFAULT NULL COMMENT 'Subject',
+  `name` varchar(45) DEFAULT NULL COMMENT 'Name',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `attachment_data_relation`;
+CREATE TABLE `attachment_data_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attachId` int(11) DEFAULT NULL,
+  `templateId` int(11) DEFAULT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `updateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `attachment_data`;
+CREATE TABLE `attachment_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `src` varchar(200) DEFAULT NULL,
+  `cid` varchar(45) DEFAULT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `updateTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
 
 --
 -- Dumping data for table `user_role_relation`

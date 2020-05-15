@@ -1,9 +1,12 @@
-FROM node:6
+FROM node:8
 
 ENV NODE_ENV development
-COPY ./src /home/node/app
-WORKDIR /home/node/app
 
+RUN mkdir /opt/mqtt-svc
+
+WORKDIR /opt/mqtt-svc
+
+COPY . .
 #install node-module
 RUN npm install
 

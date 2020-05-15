@@ -6,7 +6,7 @@ ENV BITNAMI_PKG_CHMOD="-R g+rwX" \
     HOME="/"
 
 # Install required system packages and dependencies
-RUN install_packages libc6 libgcc1
+# RUN install_packages libc6 libgcc1
 RUN bitnami-pkg install java-1.8.201-0 --checksum de49557872836fdbd965389ebcc72e163f7242cf691d435993cc2e4f3cd56ae7
 RUN bitnami-pkg unpack tomcat-8.5.39-0 --checksum 9e7605eeb1feefcd71e3afa13b56869eb2fb85d1423e61de15630ff73cc93f63
 RUN ln -sf /opt/bitnami/tomcat/data /app

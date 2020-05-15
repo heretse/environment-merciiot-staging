@@ -1,4 +1,4 @@
-FROM nodered/node-red-docker
+FROM nodered/node-red-docker:slim-v8
 
 RUN npm install --save node-red-contrib-crypto-js
 
