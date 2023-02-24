@@ -22,7 +22,7 @@
     "mosca": "^2.7.0",
     "mysql": "~2.9.0",
     "node-epc": "^0.1.1",
-    "sequelize": "~5.15.1"
+    "sequelize": "~6.29.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
